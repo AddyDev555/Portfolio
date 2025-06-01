@@ -81,7 +81,7 @@ export default function SideProfile({ className = "" }) {
                 <div className="relative group">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
                     <Image
-                        src="/profilePic1.jpg"
+                        src="/profilePic2.jpg"
                         alt="My Photo"
                         width={130}
                         height={130}
