@@ -203,10 +203,10 @@ export default function MainHomepage() {
                     )}
                 </div>
 
-                {/* Rotated HOME label */}
+                {/* Rotated HOME label
                 <div className="absolute right-0.5 lg:right-3 lg:top-1/2 rotate-90 flex text-white text-sm tracking-widest z-10">
                     HOME
-                </div>
+                </div> */}
             </div>
             
 

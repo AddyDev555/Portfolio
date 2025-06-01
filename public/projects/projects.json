@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "title": "AutoGrade",
+        "description": "AutoGrade is an intelligent essay and assignment evaluation system built using advanced Natural Language Processing (NLP) techniques and transformer-based language models like BERT. The system automatically analyzes and scores user-submitted content by understanding its context, coherence, grammar, vocabulary richness, and relevance to the given topic.",
+        "video": "/projects/videos/AutoGrade.mp4",
+        "date": "2025-01-10",
+        "githubLink": "https://github.com/AddyDev555/NLP_MiniPro",
+        "technologies": [
+            "React",
+            "Flask",
+            "Python",
+            "tensorflow",
+            "pandas"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Olab's Hackathon Project",
+        "description": "PFI is a Virtual Lab for 'Physical Features of India', designed to make learning geography more interactive, engaging, and accessible for students. Through this website, we aimed to create a hands-on learning experience where users can explore the diverse landforms of India — from the majestic Himalayas to the coastal plains — all from a virtual space.",
+        "video": "/projects/videos/PFI.mp4",
+        "date": "2024-12-20",
+        "githubLink": "https://github.com/AddyDev555/PFI",
+        "hostedLink": "https://pfi-olabs.netlify.app/",
+        "technologies": [
+            "React",
+            "Flask",
+            "Sqlite",
+            "leaflet.js",
+            "openstreet maps"
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Code Crib (Code Manager)",
+        "description": "A Developers Hub that helps to store your codes or cheat-sheets secure and convenient simple and easy UI. Whether you're a beginner learning to code or a seasoned developer working on complex projects, this hub caters to everyone who wants a secure, organized, and efficient way to manage their coding resources.",
+        "video": "/projects/videos/CodeCrib.mp4",
+        "date": "2024-11-20",
+        "githubLink": "https://github.com/AddyDev555/CodeCrib",
+        "hostedLink": "https://codecrib.netlify.app/",
+        "technologies": [
+            "React",
+            "Flask",
+            "Sqlite",
+            "HTML5",
+            "CSS3",
+            "Prism.JS"
+        ]
+    },
+    {
+        "id": 4,
+        "title": "DexAi (3D Avatar)",
+        "description": "A Personal Ai assistant that helps to pic images from browser and interact with text to speech and also auto emailing. This personal AI assistant is perfect for busy professionals, students, and tech enthusiasts who want to streamline their workflow, enhance multitasking capabilities, and stay ahead in their daily routines.",
+        "video": "/projects/videos/DexAi.mp4",
+        "date": "2024-09-15",
+        "githubLink": "https://github.com/AddyDev555/ecommerce-platform",
+        "technologies": [
+            "React",
+            "Blender",
+            "three.js",
+            "Mixamo"
+        ]
+    }
+]
