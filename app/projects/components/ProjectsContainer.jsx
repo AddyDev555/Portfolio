@@ -11,22 +11,29 @@ export default function ProjectsContainer() {
     const [isMenu, setIsMenu] = useState(false);
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [playingVideo, setPlayingVideo] = useState(null);
 
-    // Load projects data
+    // Load projects data from backend API
     useEffect(() => {
         const loadProjects = async () => {
             try {
-                // Fetch the JSON file from the public folder
-                const response = await fetch('/projects/projects.json');
+                setLoading(true);
+                setError(null);
+                
+                // Fetch from backend API
+                const response = await fetch('https://adiverse.pythonanywhere.com/api/projects');
+                
                 if (!response.ok) {
-                    throw new Error('Failed to fetch projects data');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
                 const projectsData = await response.json();
-                setProjects(projectsData);
+                setProjects(projectsData.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error loading projects data:', error);
+                setError(error.message);
                 setLoading(false);
             }
         };
@@ -61,7 +68,7 @@ export default function ProjectsContainer() {
     const menuItems = [
         { name: "Home", href: "/" },
         { name: "Projects", href: "/projects" },
-        { name: "Contact", href: "/contact" },
+        { name: "Contact", href: "/contacts" },
         { name: "Blogs", href: "/blogs" },
         { name: "UI/UX Store", href: "/store" }
     ];
@@ -91,7 +98,7 @@ export default function ProjectsContainer() {
                             autoPlay={playingVideo === project.id}
                             poster={project.image}
                         >
-                            <source src={project.video} type="video/mp4" />
+                            <source src={`https://adiverse.pythonanywhere.com/projects/${project.video}`} type="video/mp4" />
                         </video>
                         <button
                             onClick={() => handleVideoPlay(project.id)}
@@ -202,8 +209,25 @@ export default function ProjectsContainer() {
                         </div>
                     )}
 
+                    {/* Error State */}
+                    {error && (
+                        <div className="text-center py-20">
+                            <div className="text-6xl mb-4">⚠️</div>
+                            <h3 className="text-2xl font-bold text-white mb-2">Failed to Load Projects</h3>
+                            <p className="text-gray-400 mb-4">
+                                {error}
+                            </p>
+                            <button
+                                onClick={() => window.location.reload()}
+                                className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-medium rounded-lg transition-colors duration-200"
+                            >
+                                Retry
+                            </button>
+                        </div>
+                    )}
+
                     {/* Projects Grid */}
-                    {!loading && projects.length > 0 && (
+                    {!loading && !error && projects.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                             {projects.map((project, index) => (
                                 <ProjectCard key={project.id || index} project={project} />
@@ -212,12 +236,12 @@ export default function ProjectsContainer() {
                     )}
 
                     {/* Empty State */}
-                    {!loading && projects.length === 0 && (
+                    {!loading && !error && projects.length === 0 && (
                         <div className="text-center py-20">
                             <div className="text-6xl mb-4">🚧</div>
                             <h3 className="text-2xl font-bold text-white mb-2">No Projects Found</h3>
                             <p className="text-gray-400">
-                                Projects data couldn't be loaded. Please check the JSON file path.
+                                No projects available at the moment. Check back later!
                             </p>
                         </div>
                     )}

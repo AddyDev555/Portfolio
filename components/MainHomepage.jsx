@@ -53,7 +53,7 @@ export default function MainHomepage() {
     const menuItems = [
         { name: "Home", href: "/" },
         { name: "Projects", href: "/projects" },
-        { name: "Contact", href: "/contact" },
+        { name: "Contact", href: "/contacts" },
         {name: "Blogs", href: "/blogs"},
         {name: "UI/UX Store", href: "/store"}
     ];
