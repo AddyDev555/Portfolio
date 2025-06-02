@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaArrowLeft } from "react-icons/fa";
+import Image from 'next/image';
+import Link from "next/link";
 
 const ContactMe = () => {
     const [formData, setFormData] = useState({
@@ -24,7 +26,6 @@ const ContactMe = () => {
         setIsLoading(true);
         setStatus({ type: '', message: '' });
 
-        // Basic validation
         if (!formData.from_name || !formData.from_email || !formData.message) {
             setStatus({
                 type: 'error',
@@ -35,7 +36,6 @@ const ContactMe = () => {
         }
 
         try {
-            // Simulate EmailJS call (replace with actual implementation in your environment)
             const templateParams = {
                 from_name: formData.from_name,
                 from_email: formData.from_email,
@@ -43,24 +43,21 @@ const ContactMe = () => {
                 message: formData.message,
             };
 
-            // In your actual implementation, use:
-            const emailjs = require('@emailjs/browser');
-            await emailjs.send(
-                "service_uhy7xw3",
-                "template_b0gsigo", 
-                templateParams,
-                "e4urQMx9Nd0cX_lRD"
-            );
+            // const emailjs = require('@emailjs/browser');
+            // await emailjs.send(
+            //     "service_uhy7xw3",
+            //     "template_b0gsigo",
+            //     templateParams,
+            //     "e4urQMx9Nd0cX_lRD"
+            // );
 
-            // Simulating success for demo
             await new Promise(resolve => setTimeout(resolve, 2000));
-            
+
             setStatus({
                 type: 'success',
                 message: 'Message sent successfully! I\'ll get back to you soon.'
             });
-            
-            // Reset form
+
             setFormData({
                 from_name: '',
                 from_email: '',
@@ -80,62 +77,58 @@ const ContactMe = () => {
     };
 
     return (
-        <div className="min-h-screen overflow-y-scroll bg-black text-white flex items-center justify-center p-8">
-            <div className="w-full max-w-3xl bg-gray-900 p-8 rounded-2xl shadow-lg">
-                <h2 className="text-3xl font-bold mb-6 text-yellow-400">Contact Me</h2>
-                
-                {/* Status Messages */}
+        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white flex justify-center p-6">
+            <div>
+                <Image
+                    src="/loginSideImage.jpg"
+                    alt="login Picture"
+                    width={400}
+                    height={350}
+                    className="shadow-lg rounded-tl-2xl rounded-bl-2xl"
+                />
+            </div>
+            <div className="w-full h-[100vh] max-w-4xl bg-gray-950 p-10 rounded-tr-2xl rounded-br-2xl overflow-y-scroll shadow-2xl backdrop-blur-sm border border-gray-800">
+                <div className="flex items-center gap-x-5">
+                    <Link href="/">
+                        <div className="flex items-center text-white hover:text-yellow-500 transition duration-200 cursor-pointer w-fit mb-7">
+                            <FaArrowLeft className="text-2xl" />
+                        </div>
+                    </Link>
+                    <h2 className="text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Get In Touch</h2>
+                </div>
+
                 {status.message && (
-                    <div className={`mb-6 p-4 rounded-lg ${
-                        status.type === 'success' 
-                            ? 'bg-green-900 border border-green-400 text-green-100' 
-                            : 'bg-red-900 border border-red-400 text-red-100'
-                    }`}>
+                    <div className={`mb-6 p-4 rounded-lg transition-all duration-300 text-sm ${status.type === 'success'
+                        ? 'bg-green-800/30 border border-green-500 text-green-300'
+                        : 'bg-red-800/30 border border-red-500 text-red-300'
+                        }`}>
                         {status.message}
                     </div>
                 )}
 
-                <div className="space-y-5">
+                <form onSubmit={sendEmail} className="space-y-6">
+                    {[
+                        { name: 'from_name', label: 'Name *', placeholder: 'John Doe', type: 'text' },
+                        { name: 'from_email', label: 'Email *', placeholder: 'john@example.com', type: 'email' },
+                        { name: 'subject', label: 'Subject', placeholder: 'Regarding collaboration', type: 'text' }
+                    ].map(({ name, label, placeholder, type }) => (
+                        <div key={name}>
+                            <label className="block mb-1 text-gray-400">{label}</label>
+                            <input
+                                type={type}
+                                name={name}
+                                value={formData[name]}
+                                onChange={handleChange}
+                                required={label.includes('*')}
+                                disabled={isLoading}
+                                className="w-full px-4 py-3 rounded-xl bg-black/50 text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all duration-200 disabled:opacity-50"
+                                placeholder={placeholder}
+                            />
+                        </div>
+                    ))}
+
                     <div>
-                        <label className="block mb-1 text-gray-300">Name *</label>
-                        <input
-                            type="text"
-                            name="from_name"
-                            value={formData.from_name}
-                            onChange={handleChange}
-                            required
-                            disabled={isLoading}
-                            className="w-full p-3 rounded bg-black text-white border border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
-                            placeholder="Your full name"
-                        />
-                    </div>
-                    <div>
-                        <label className="block mb-1 text-gray-300">Email *</label>
-                        <input
-                            type="email"
-                            name="from_email"
-                            value={formData.from_email}
-                            onChange={handleChange}
-                            required
-                            disabled={isLoading}
-                            className="w-full p-3 rounded bg-black text-white border border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
-                            placeholder="your.email@example.com"
-                        />
-                    </div>
-                    <div>
-                        <label className="block mb-1 text-gray-300">Subject</label>
-                        <input
-                            type="text"
-                            name="subject"
-                            value={formData.subject}
-                            onChange={handleChange}
-                            disabled={isLoading}
-                            className="w-full p-3 rounded bg-black text-white border border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
-                            placeholder="What's this about?"
-                        />
-                    </div>
-                    <div>
-                        <label className="block mb-1 text-gray-300">Message *</label>
+                        <label className="block mb-1 text-gray-400">Message *</label>
                         <textarea
                             name="message"
                             value={formData.message}
@@ -143,14 +136,15 @@ const ContactMe = () => {
                             required
                             rows="5"
                             disabled={isLoading}
-                            className="w-full p-3 rounded bg-black text-white border border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-vertical disabled:opacity-50 disabled:cursor-not-allowed"
-                            placeholder="Tell me about your project or how I can help..."
+                            className="w-full px-4 py-3 rounded-xl bg-black/50 text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-vertical transition-all duration-200 disabled:opacity-50"
+                            placeholder="Let me know how I can help..."
                         />
                     </div>
+
                     <button
-                        onClick={sendEmail}
+                        type="submit"
                         disabled={isLoading}
-                        className="bg-yellow-400 text-black font-bold px-6 py-3 rounded hover:bg-yellow-500 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                        className="w-full md:w-fit bg-yellow-400 text-black font-semibold px-8 py-3 rounded-xl hover:bg-yellow-500 transition duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
                     >
                         {isLoading ? (
                             <>
@@ -161,18 +155,28 @@ const ContactMe = () => {
                             'Send Message'
                         )}
                     </button>
-                </div>
+                </form>
 
-                <div className="mt-10 space-y-4 text-gray-300">
-                    <p className="flex items-center gap-3">
-                        <FaEnvelope className="text-yellow-400" /> your@email.com
-                    </p>
-                    <p className="flex items-center gap-3">
-                        <FaPhone className="text-yellow-400" /> +123 456 7890
-                    </p>
-                    <p className="flex items-center gap-3">
-                        <FaMapMarkerAlt className="text-yellow-400" /> Your City, Country
-                    </p>
+                <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+                    {[
+                        {
+                            icon: <FaEnvelope className="text-yellow-400 text-lg" />,
+                            text: "adipatildev04@gmail.com"
+                        },
+                        {
+                            icon: <FaPhone className="text-yellow-400 text-lg" />,
+                            text: "+91-9987361083"
+                        },
+                        {
+                            icon: <FaMapMarkerAlt className="text-yellow-400 text-lg" />,
+                            text: "Mumbai, India"
+                        }
+                    ].map((info, idx) => (
+                        <div key={idx} className="flex items-center gap-3 bg-black/40 border border-gray-700 rounded-xl px-4 py-3">
+                            {info.icon}
+                            <span className="text-gray-300">{info.text}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
