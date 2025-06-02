@@ -12,6 +12,7 @@ import SkillsSection from './Skills';
 import Internships from './Internships';
 import AcademicAchievements from './Achivements';
 import ExtraCurricularActivities from './Hobbies';
+import Certification from "./Certification";
 
 export default function MainHomepage() {
     const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -102,7 +103,7 @@ export default function MainHomepage() {
     }, [isMenu]);
 
     return (
-        <div className='relative h-[100vh] w-full overflow-scroll'>
+        <div className='relative h-[100vh] w-full overflow-y-scroll'>
             <div className="bg-[#20202a] h-[30vh] lg:h-[60vh] flex items-center justify-center overflow-hidden px-8">
                 <div
                     className="h-[30vh] lg:h-[60vh] absolute inset-0 bg-cover bg-center opacity-30"
@@ -213,6 +214,11 @@ export default function MainHomepage() {
             {/* Skills Container */}
             <div className='lg:pl-18 lg:pr-18 pt-4'>
                 <SkillsSection />
+            </div>
+
+            {/* Certification Container */}
+            <div className='lg:pl-18 lg:pr-18 pt-4'>
+                <Certification />
             </div>
 
             {/* Internships Container */}

@@ -96,7 +96,7 @@ export default function ProjectsContainer() {
                             loop
                             muted
                             autoPlay={playingVideo === project.id}
-                            poster={`https://adiverse.pythonanywhere.com/projects/${project.image}`}
+                            // poster={`https://adiverse.pythonanywhere.com/projects/${project.image}`}
                         >
                             <source src={`https://adiverse.pythonanywhere.com/projects/${project.video}`} type="video/mp4" />
                         </video>
