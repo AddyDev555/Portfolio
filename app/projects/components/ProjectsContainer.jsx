@@ -96,7 +96,7 @@ export default function ProjectsContainer() {
                             loop
                             muted
                             autoPlay={playingVideo === project.id}
-                            poster={project.image}
+                            poster={`https://adiverse.pythonanywhere.com/projects/${project.image}`}
                         >
                             <source src={`https://adiverse.pythonanywhere.com/projects/${project.video}`} type="video/mp4" />
                         </video>
@@ -113,9 +113,9 @@ export default function ProjectsContainer() {
                     </div>
                 ) : project.image ? (
                     <img
-                        src={project.image}
+                        src={`https://adiverse.pythonanywhere.com/projects/${project.image}`}
                         alt={project.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className="w-full h-[60vh] object-cover hover:scale-105 transition-transform duration-300"
                     />
                 ) : (
                     <div className="w-full h-full bg-gradient-to-br from-yellow-500/20 to-purple-500/20 flex items-center justify-center">
