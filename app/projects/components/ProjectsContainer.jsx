@@ -69,7 +69,6 @@ export default function ProjectsContainer() {
         { name: "Home", href: "/" },
         { name: "Projects", href: "/projects" },
         { name: "Contact", href: "/contacts" },
-        { name: "Blogs", href: "/blogs" },
         { name: "UI/UX Store", href: "/store" }
     ];
 

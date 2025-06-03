@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import {
@@ -13,13 +13,23 @@ import Internships from './Internships';
 import AcademicAchievements from './Achivements';
 import ExtraCurricularActivities from './Hobbies';
 import Certification from "./Certification";
+import { FaFileAlt, FaSearch } from "react-icons/fa";
 
 export default function MainHomepage() {
     const [currentTextIndex, setCurrentTextIndex] = useState(0);
     const [displayText, setDisplayText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
-    
+    const sectionRef = useRef(null);
+
+    const handleScroll = () => {
+        sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    const openResume = () => {
+        window.open("https://drive.google.com/file/d/1ZR_I02iMq5vhycitpdtbjxr4o15L3o14/view?usp=drive_link", "_blank");
+    };
+
     const textList = [
         "Building automation tools.",
         "Developing web apps.",
@@ -55,8 +65,7 @@ export default function MainHomepage() {
         { name: "Home", href: "/" },
         { name: "Projects", href: "/projects" },
         { name: "Contact", href: "/contacts" },
-        {name: "Blogs", href: "/blogs"},
-        {name: "UI/UX Store", href: "/store"}
+        { name: "UI/UX Store", href: "/store" }
     ];
 
     useEffect(() => {
@@ -123,9 +132,17 @@ export default function MainHomepage() {
                             </span>
                             <span className="text-yellow-400"> &lt;/code&gt;</span>
                         </p>
-                        <button className="text-sm mt-8 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-3 cursor-pointer rounded shadow-md transition-all duration-200 hidden md:block">
-                            EXPLORE NOW
-                        </button>
+                        <div className="flex items-center gap-2 w-full">
+                            <button onClick={handleScroll} className="text-sm mt-8 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-3 cursor-pointer rounded shadow-md transition-all duration-200 hidden lg:flex lg:gap-2 items-center">
+                                <FaSearch className="text-black"/>
+                                <p>EXPLORE NOW</p>
+                            </button>
+                            <button onClick={openResume} className="items-center text-sm mt-8 border border-yellow-500 bg-transparent backdrop-blur-sm text-white font-bold py-3 px-4 cursor-pointer rounded shadow-md transition-all duration-200 hover:bg-yellow-600/30 hidden lg:flex lg:gap-2">
+                                <FaFileAlt className="text-white" />
+                                <p>RESUME</p>
+                            </button>
+
+                        </div>
                         {/* Social Media - Only show on mobile */}
                         <div className="pt-3 md:hidden">
                             <div className="flex items-center gap-4">
@@ -180,7 +197,7 @@ export default function MainHomepage() {
                                     </Link>
                                 ))}
                             </div>
-                            
+
                             {/* Social Media in Menu */}
                             <div className="px-4 py-3 border-t border-gray-700/50 bg-gray-800/30">
                                 <div className="flex items-center justify-center gap-3">
@@ -209,10 +226,10 @@ export default function MainHomepage() {
                     HOME
                 </div> */}
             </div>
-            
+
 
             {/* Skills Container */}
-            <div className='lg:pl-18 lg:pr-18 pt-4'>
+            <div ref={sectionRef} className='lg:pl-18 lg:pr-18 pt-4'>
                 <SkillsSection />
             </div>
 

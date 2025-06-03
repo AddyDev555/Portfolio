@@ -78,7 +78,7 @@ const ContactMe = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white flex justify-center p-6">
-            <div>
+            <div className="hidden lg:block">
                 <Image
                     src="/loginSideImage.jpg"
                     alt="login Picture"
@@ -94,7 +94,7 @@ const ContactMe = () => {
                             <FaArrowLeft className="text-2xl" />
                         </div>
                     </Link>
-                    <h2 className="text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Get In Touch</h2>
+                    <h2 className="text-2xl lg:text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Get In Touch</h2>
                 </div>
 
                 {status.message && (
