@@ -6,13 +6,11 @@ import SubText from './UI/SubText';
 import MidText from './UI/MidText';
 import Link from 'next/link';
 import {
-    Linkedin,
-    Github,
     MapPin,
     Phone,
     Mail,
 } from 'lucide-react';
-import { FaXTwitter } from "react-icons/fa6";
+import SocialMedia from './UI/SocialMedia';
 
 const poppins = Poppins({
     subsets: ['latin'],
@@ -48,30 +46,6 @@ export default function SideProfile({ className = "" }) {
         },
     ];
 
-    const socialMedia = [
-        {
-            id: 1,
-            link: "https://www.linkedin.com/in/aditya-patil-b5a9b425a/",
-            icon: <Linkedin size={20} />,
-            label: "LinkedIn",
-            color: "hover:text-blue-400"
-        },
-        {
-            id: 2,
-            link: "https://github.com/AddyDev555",
-            icon: <Github size={20} />,
-            label: "GitHub",
-            color: "hover:text-purple-500"
-        },
-        {
-            id: 3,
-            link: "https://x.com/AdityaPati_04",
-            icon: <FaXTwitter size={20} />,
-            label: "X",
-            color: "hover:text-white-500"
-        },
-    ]
-
     return (
         <div className={`${poppins.className} ${className} hidden lg:block w-[28%] h-screen bg-gradient-to-b from-[#1f1f2e] to-[#1a1a26] shadow-2xl border-r border-gray-700/30`}>            {/* Profile Header */}
             <div className="h-[60vh] bg-gradient-to-br from-[#2a2a3e] to-[#1f1f2e] px-6 py-8 flex items-center flex-col relative overflow-hidden">
@@ -99,26 +73,7 @@ export default function SideProfile({ className = "" }) {
                         )}
                     </div>
                 </div>
-
-                {/* Social Media */}
-                <div className="absolute bottom-3 px-6 pb-4">
-                    <div className="flex items-center gap-4">
-                        {socialMedia.map(({ id, icon, link, label, color }) => (
-                            <Link
-                                key={id}
-                                href={link}
-                                target="_blank"
-                                className={`group relative p-3 rounded-xl bg-white/5 ${color} hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:shadow-lg`}
-                                title={label}
-                            >
-                                <span className="text-gray-300 group-hover:text-current transition-colors duration-200">
-                                    {icon}
-                                </span>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-
+                <SocialMedia />
             </div>
 
             {/* Contact Information */}

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react'
-import { Menu, X, ExternalLink, Github, Calendar, Play, Pause } from 'lucide-react';
+import { Menu, X, ExternalLink, Github, Calendar, Grid, List } from 'lucide-react';
 import {
     Linkedin,
 } from 'lucide-react';
@@ -12,7 +12,7 @@ export default function ProjectsContainer() {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [playingVideo, setPlayingVideo] = useState(null);
+    const [viewMode, setViewMode] = useState('card'); // 'card' or 'horizontal'
 
     // Load projects data from backend API
     useEffect(() => {
@@ -72,10 +72,6 @@ export default function ProjectsContainer() {
         { name: "UI/UX Store", href: "/store" }
     ];
 
-    const handleVideoPlay = (projectId) => {
-        setPlayingVideo(playingVideo === projectId ? null : projectId);
-    };
-
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
@@ -89,32 +85,20 @@ export default function ProjectsContainer() {
             {/* Media Section */}
             <div className="relative overflow-hidden h-48 bg-gray-800">
                 {project.video ? (
-                    <div className="relative w-full h-full">
-                        <video
-                            className="w-full h-full object-cover"
-                            loop
-                            muted
-                            autoPlay={playingVideo === project.id}
-                            // poster={`https://adiverse.pythonanywhere.com/projects/${project.image}`}
-                        >
-                            <source src={`https://adiverse.pythonanywhere.com/projects/${project.video}`} type="video/mp4" />
-                        </video>
-                        <button
-                            onClick={() => handleVideoPlay(project.id)}
-                            className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/40 transition-colors duration-200"
-                        >
-                            {playingVideo === project.id ? (
-                                <Pause size={40} className="text-white" />
-                            ) : (
-                                <Play size={40} className="text-white" />
-                            )}
-                        </button>
-                    </div>
+                    <video
+                        className="w-full h-full object-cover"
+                        controls
+                        loop
+                        muted
+                        autoPlay
+                    >
+                        <source src={`https://adiverse.pythonanywhere.com/projects/${project.video}`} type="video/mp4" />
+                    </video>
                 ) : project.image ? (
                     <img
                         src={`https://adiverse.pythonanywhere.com/projects/${project.image}`}
                         alt={project.title}
-                        className="w-full h-[60vh] object-cover hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
                 ) : (
                     <div className="w-full h-full bg-gradient-to-br from-yellow-500/20 to-purple-500/20 flex items-center justify-center">
@@ -191,13 +175,140 @@ export default function ProjectsContainer() {
         </div>
     );
 
+    const ProjectHorizontal = ({ project }) => (
+        <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-yellow-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/10">
+            <div className="flex flex-col md:flex-row">
+                {/* Media Section */}
+                <div className="relative overflow-hidden md:w-1/2 h-48 md:h-64 bg-gray-800">
+                    {project.video ? (
+                        <video
+                            className="w-full h-full object-cover"
+                            controls
+                            loop
+                            muted
+                            autoPlay
+                        >
+                            <source src={`https://adiverse.pythonanywhere.com/projects/${project.video}`} type="video/mp4" />
+                        </video>
+                    ) : project.image ? (
+                        <img
+                            src={`https://adiverse.pythonanywhere.com/projects/${project.image}`}
+                            alt={project.title}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-yellow-500/20 to-purple-500/20 flex items-center justify-center">
+                            <span className="text-6xl">🚀</span>
+                        </div>
+                    )}
+                </div>
+
+                {/* Content Section */}
+                <div className="p-6 md:w-1/2 flex flex-col justify-between">
+                    <div>
+                        {/* Header */}
+                        <div className="items-start mb-3">
+                            <h3 className="text-xl font-bold text-white truncate pr-2">
+                                {project.title}
+                            </h3>
+                            {project.date && (
+                                <div className="flex items-center text-gray-400 text-xs whitespace-nowrap mt-1">
+                                    <Calendar size={14} className="mr-1" />
+                                    {formatDate(project.date)}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                            {project.description}
+                        </p>
+
+                        {/* Technologies */}
+                        {project.technologies && project.technologies.length > 0 && (
+                            <div className="mb-4">
+                                <div className="flex flex-wrap gap-2">
+                                    {project.technologies.slice(0, 8).map((tech, index) => (
+                                        <span
+                                            key={index}
+                                            className="text-xs px-2 py-1 bg-yellow-500/10 text-yellow-400 rounded-md border border-yellow-500/20"
+                                        >
+                                            {tech}
+                                        </span>
+                                    ))}
+                                    {project.technologies.length > 8 && (
+                                        <span className="text-xs px-2 py-1 bg-gray-700/50 text-gray-400 rounded-md">
+                                            +{project.technologies.length - 8} more
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-3">
+                        {project.hostedLink && (
+                            <Link
+                                href={project.hostedLink}
+                                target="_blank"
+                                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-medium rounded-lg transition-colors duration-200"
+                            >
+                                <ExternalLink size={16} />
+                                <span className="text-sm">Live Demo</span>
+                            </Link>
+                        )}
+                        {project.githubLink && (
+                            <Link
+                                href={project.githubLink}
+                                target="_blank"
+                                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg transition-colors duration-200"
+                            >
+                                <Github size={16} />
+                                <span className="text-sm">Code</span>
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
     return (
         <div className='relative h-[100vh] w-full overflow-scroll bg-gradient-to-br from-gray-900 via-gray-800 to-black'>
             <div className="w-full p-4">
-                {/* Projects Header */}
-                <h2 className="w-[96%] m-auto text-2xl font-semibold mb-2 capitalize border-b border-gray-700 pb-2">
-                    Projects
-                </h2>
+                {/* Projects Header with View Toggle */}
+                <div className="w-[96%] flex items-center justify-between border-b border-gray-700 pb-2 mb-2">
+                    <h2 className="text-2xl font-semibold capitalize">
+                        Projects
+                    </h2>
+                    
+                    {/* View Toggle Buttons */}
+                    <div className="flex ml-auto mr-3 items-center gap-2 bg-gray-800/50 rounded-lg p-1 border border-gray-700/50 ">
+                        <button
+                            onClick={() => setViewMode('card')}
+                            className={`p-2 rounded-md cursor-pointer transition-all duration-200 ${
+                                viewMode === 'card'
+                                    ? 'bg-yellow-500 text-black'
+                                    : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                            }`}
+                            title="Card View"
+                        >
+                            <Grid size={18} />
+                        </button>
+                        <button
+                            onClick={() => setViewMode('horizontal')}
+                            className={`p-2 rounded-md cursor-pointer transition-all duration-200 ${
+                                viewMode === 'horizontal'
+                                    ? 'bg-yellow-500 text-black'
+                                    : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
+                            }`}
+                            title="Horizontal View"
+                        >
+                            <List size={18} />
+                        </button>
+                    </div>
+                </div>
 
                 {/* Projects Display */}
                 <div className="container mx-auto px-4 py-4">
@@ -225,12 +336,18 @@ export default function ProjectsContainer() {
                         </div>
                     )}
 
-                    {/* Projects Grid */}
+                    {/* Projects Grid/List */}
                     {!loading && !error && projects.length > 0 && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-                            {projects.map((project, index) => (
-                                <ProjectCard key={project.id || index} project={project} />
-                            ))}
+                        <div className={`mb-20 ${
+                            viewMode === 'card' 
+                                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' 
+                                : 'flex flex-col gap-6'
+                        }`}>
+                            {projects.map((project, index) => 
+                                viewMode === 'card' 
+                                    ? <ProjectCard key={project.id || index} project={project} />
+                                    : <ProjectHorizontal key={project.id || index} project={project} />
+                            )}
                         </div>
                     )}
 
@@ -293,11 +410,6 @@ export default function ProjectsContainer() {
                         </div>
                     )}
                 </div>
-
-                {/* Rotated PROJECTS label
-                <div className="fixed right-0 top-1/2 -translate-y-1/2 rotate-90 text-white text-sm tracking-widest z-10 origin-center">
-                    PROJECTS
-                </div> */}
             </div>
         </div>
     )

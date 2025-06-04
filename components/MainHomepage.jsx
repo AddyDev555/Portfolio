@@ -14,6 +14,8 @@ import AcademicAchievements from './Achivements';
 import ExtraCurricularActivities from './Hobbies';
 import Certification from "./Certification";
 import { FaFileAlt, FaSearch } from "react-icons/fa";
+import Footer from './UI/Footer';
+import SocialMedia from './UI/SocialMedia';
 
 export default function MainHomepage() {
     const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -122,9 +124,13 @@ export default function MainHomepage() {
                 <div className="relative z-10 flex max-w-6xl w-[93%] bg-[#1f1f2e] rounded-md shadow-lg overflow-hidden h-[50vh]">
                     <div className="w-[100%] lg:w-[65%] px-4 lg:px-6 py-2 text-white flex flex-col justify-center">
                         <h1 className="text-md md:text-3xl font-extrabold leading-tight">
-                            Welcome to <span className="text-yellow-500">AdiVerse</span><br />My Art Space!
+                            Welcome to <span className="text-yellow-500">AdiVerse</span><br />I am Aditya Patil
                         </h1>
-                        <p className="mt-6 text-xs lg:text-[1rem] font-mono">
+                        <div className="pt-2 flex items-center gap-2 lg:hidden">
+                            <p className="text-slate-100 text-[0.5rem]">Full Stack Developer</p>
+                            <p className="text-slate-100 text-[0.5rem]">Data Scientist Enthusiast</p>
+                        </div>
+                        <p className="mt-2 text-xs lg:text-[1rem] font-mono">
                             <span className="text-yellow-400">&lt;code&gt; </span>
                             <span className="inline-block min-w-[200px]">
                                 {displayText}
@@ -134,7 +140,7 @@ export default function MainHomepage() {
                         </p>
                         <div className="flex items-center gap-2 w-full">
                             <button onClick={handleScroll} className="text-sm mt-8 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-3 cursor-pointer rounded shadow-md transition-all duration-200 hidden lg:flex lg:gap-2 items-center">
-                                <FaSearch className="text-black"/>
+                                <FaSearch className="text-black" />
                                 <p>EXPLORE NOW</p>
                             </button>
                             <button onClick={openResume} className="items-center text-sm mt-8 border border-yellow-500 bg-transparent backdrop-blur-sm text-white font-bold py-3 px-4 cursor-pointer rounded shadow-md transition-all duration-200 hover:bg-yellow-600/30 hidden lg:flex lg:gap-2">
@@ -251,6 +257,10 @@ export default function MainHomepage() {
             {/* Hobbies Container */}
             <div className='lg:pl-18 lg:pr-18 pt-2 pb-4'>
                 <ExtraCurricularActivities />
+            </div>
+            
+            <div className='lg:pl-18 lg:pr-18 pt-2 pb-4'>
+                <Footer />
             </div>
         </div>
     );
