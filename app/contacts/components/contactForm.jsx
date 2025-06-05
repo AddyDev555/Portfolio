@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaArrowLeft } from "react-icons/fa";
 import Image from 'next/image';
 import Link from "next/link";
+import emailjs from '@emailjs/browser';
 
 const ContactMe = () => {
     const [formData, setFormData] = useState({
@@ -41,21 +42,19 @@ const ContactMe = () => {
                 from_email: formData.from_email,
                 subject: formData.subject || 'Contact Form Submission',
                 message: formData.message,
+                to_email: "adipatildev04@gmail.com"
             };
 
-            // const emailjs = require('@emailjs/browser');
-            // await emailjs.send(
-            //     "service_uhy7xw3",
-            //     "template_b0gsigo",
-            //     templateParams,
-            //     "e4urQMx9Nd0cX_lRD"
-            // );
-
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await emailjs.send(
+                "service_r48vy0e",           // your EmailJS service ID
+                "template_nhdn4cc",          // your EmailJS template ID
+                templateParams,
+                "e4urQMx9Nd0cX_lRD"          // your EmailJS public key
+            );
 
             setStatus({
                 type: 'success',
-                message: 'Message sent successfully! I\'ll get back to you soon.'
+                message: "Message sent successfully! I'll get back to you soon."
             });
 
             setFormData({
@@ -75,6 +74,7 @@ const ContactMe = () => {
             setIsLoading(false);
         }
     };
+
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white flex justify-center p-6">
