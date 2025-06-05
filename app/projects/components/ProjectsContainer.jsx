@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { FaXTwitter } from "react-icons/fa6";
 import Link from 'next/link';
+import Loader from '@/components/UI/Loader';
 
 export default function ProjectsContainer() {
     const [isMenu, setIsMenu] = useState(false);
@@ -20,14 +21,14 @@ export default function ProjectsContainer() {
             try {
                 setLoading(true);
                 setError(null);
-                
+
                 // Fetch from backend API
                 const response = await fetch('https://adiverse.pythonanywhere.com/api/projects');
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const projectsData = await response.json();
                 setProjects(projectsData.data);
                 setLoading(false);
@@ -282,27 +283,25 @@ export default function ProjectsContainer() {
                     <h2 className="text-2xl font-semibold capitalize">
                         Projects
                     </h2>
-                    
+
                     {/* View Toggle Buttons */}
                     <div className="flex ml-auto mr-3 items-center gap-2 bg-gray-800/50 rounded-lg p-1 border border-gray-700/50 ">
                         <button
                             onClick={() => setViewMode('card')}
-                            className={`p-2 rounded-md cursor-pointer transition-all duration-200 ${
-                                viewMode === 'card'
+                            className={`p-2 rounded-md cursor-pointer transition-all duration-200 ${viewMode === 'card'
                                     ? 'bg-yellow-500 text-black'
                                     : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
-                            }`}
+                                }`}
                             title="Card View"
                         >
                             <Grid size={18} />
                         </button>
                         <button
                             onClick={() => setViewMode('horizontal')}
-                            className={`p-2 rounded-md cursor-pointer transition-all duration-200 ${
-                                viewMode === 'horizontal'
+                            className={`p-2 rounded-md cursor-pointer transition-all duration-200 ${viewMode === 'horizontal'
                                     ? 'bg-yellow-500 text-black'
                                     : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
-                            }`}
+                                }`}
                             title="Horizontal View"
                         >
                             <List size={18} />
@@ -314,10 +313,14 @@ export default function ProjectsContainer() {
                 <div className="container mx-auto px-4 py-4">
                     {/* Loading State */}
                     {loading && (
-                        <div className="flex justify-center items-center py-20">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500"></div>
+                        <div className="flex justify-center items-center h-[75vh] w-full">
+                            <div className="flex flex-col items-center space-y-4">
+                                <Loader />
+                                <p className="text-white text-lg">Loading projects...</p>
+                            </div>
                         </div>
                     )}
+
 
                     {/* Error State */}
                     {error && (
@@ -338,13 +341,12 @@ export default function ProjectsContainer() {
 
                     {/* Projects Grid/List */}
                     {!loading && !error && projects.length > 0 && (
-                        <div className={`mb-20 ${
-                            viewMode === 'card' 
-                                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' 
+                        <div className={`mb-20 ${viewMode === 'card'
+                                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
                                 : 'flex flex-col gap-6'
-                        }`}>
-                            {projects.map((project, index) => 
-                                viewMode === 'card' 
+                            }`}>
+                            {projects.map((project, index) =>
+                                viewMode === 'card'
                                     ? <ProjectCard key={project.id || index} project={project} />
                                     : <ProjectHorizontal key={project.id || index} project={project} />
                             )}

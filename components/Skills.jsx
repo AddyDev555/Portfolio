@@ -1,10 +1,10 @@
 import React from "react";
 import {
-    FaJava, FaPython, FaPhp, FaReact, FaHtml5, FaCss3Alt, FaVideo, FaFigma, FaPaintBrush,
+    FaJava, FaPython, FaPhp, FaReact, FaHtml5, FaCss3Alt, FaPlane, FaVideo, FaFigma, FaPaintBrush,
 } from "react-icons/fa";
 import {
-    SiC, SiJavascript, SiNextdotjs, SiElectron, SiStreamlit, SiFlask,
-    SiDjango, SiFastapi, SiSelenium , SiMongodb, SiPostgresql, SiTailwindcss
+    SiC, SiJavascript, SiNextdotjs, SiElectron, SiFlask, SiNodedotjs,
+    SiDjango, SiSelenium , SiMongodb, SiPostgresql, SiTailwindcss
 } from "react-icons/si";
 import { GrMysql } from "react-icons/gr";
 
@@ -25,12 +25,11 @@ const skills = {
         { id: 11, label: "Tailwind CSS", icon: <SiTailwindcss size={24} /> },
         { id: 12, label: "Tkinter", icon: <FaPython size={24} /> },
         { id: 13, label: "Electron", icon: <SiElectron size={24} /> },
-        { id: 14, label: "Streamlit", icon: <SiStreamlit size={24} /> }
     ],
     backendFrameworks: [
         { id: 15, label: "Flask", icon: <SiFlask size={24} /> },
         { id: 16, label: "Django", icon: <SiDjango size={24} /> },
-        { id: 17, label: "FastAPI", icon: <SiFastapi size={24} /> },
+        { id: 17, label: "NodeJS", icon: <SiNodedotjs size={24} /> },
         { id: 18, label: "Selenium", icon: <SiSelenium size={24} /> }
     ],
     databases: [
@@ -40,8 +39,9 @@ const skills = {
     ],
     otherSkills: [
         { id: 22, label: "Video Editing", icon: <FaVideo size={24} /> },
-        { id: 23, label: "UI/UX Development", icon: <FaFigma size={24} /> },
-        { id: 24, label: "Graphics Designing", icon: <FaPaintBrush size={24} /> }
+        { id: 23, label: "UI/UX Development", icon: <FaFigma size={25} /> },
+        { id: 25, label: "Graphics Designing", icon: <FaPaintBrush size={25} /> },
+        { id: 24, label: "Drone Development", icon: <FaPlane size={25} /> }
     ]
 };
 
