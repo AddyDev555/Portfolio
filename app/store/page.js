@@ -1,5 +1,4 @@
 import React from 'react'
-import StoreSidebar from './components/storeSidebar'
 import CardsHolder from './components/CardsHolder'
 
 export const metadata = {
@@ -9,8 +8,7 @@ export const metadata = {
 
 export default function page() {
     return (
-        <div className='w-full p-4 flex'>
-            <StoreSidebar />
+        <div className='w-full p-4'>
             <CardsHolder />
         </div>
     )

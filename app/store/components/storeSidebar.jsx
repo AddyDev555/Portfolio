@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import { MdViewModule, MdDashboard, MdOutlineTipsAndUpdates } from "react-icons/md";
 import { FaRegHandPointer, FaSpinner } from "react-icons/fa";
@@ -11,7 +12,7 @@ const poppins = Poppins({
     variable: '--font-poppins',
 });
 
-export default function StoreSidebar() {
+export default function StoreSidebar({ selectedCategory, onCategorySelect }) {
 
     const elements = [
         { id: 1, label: "All", icon: <MdDashboard size={25} /> },
@@ -24,11 +25,11 @@ export default function StoreSidebar() {
     ];
 
     return (
-        <div className={`${poppins.className} p-6 w-[17%] h-[100vh] overflow-y-hidden bg-[#1c1c29]`}>
+        <div className={`${poppins.className} p-6 w-[18.5%] hidden lg:flex h-[100vh] overflow-y-hidden bg-[#1c1c29]`}>
             <div>
                 <h1 className='text-lg text-center text-white mb-5 border-b border-gray-700 pb-1'>UI/UX Components</h1>
                 {elements.map((item) => (
-                    <div className='flex p-4 rounded cursor-pointer hover:bg-gray-800 items-center mb-4 gap-2 text-white text-sm' key={item.id}>
+                    <div onClick={() => onCategorySelect(item.label)} className='flex p-4 rounded cursor-pointer hover:bg-gray-800 items-center mb-4 gap-2 text-white text-sm' key={item.id}>
                         {item.icon}
                         <p>{item.label}</p>
                     </div>
