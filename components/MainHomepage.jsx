@@ -29,7 +29,7 @@ export default function MainHomepage() {
     };
 
     const openResume = () => {
-        window.open("https://drive.google.com/file/d/1ZR_I02iMq5vhycitpdtbjxr4o15L3o14/view?usp=drive_link", "_blank");
+        window.open("https://drive.google.com/file/d/1yg7g3jnlDp_IrkwtVhv3Sbxs-OWagKDX/view?usp=drive_link", "_blank");
     };
 
     const textList = [
